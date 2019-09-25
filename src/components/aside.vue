@@ -20,19 +20,23 @@
 
         <el-menu-item index="/index/home">
           <i class="el-icon-menu"></i>
-          <span slot="title">信息总览</span>
+          <span slot="title">信 息 总 览</span>
         </el-menu-item>
         <el-menu-item index="/index/rule">
           <i class="iconfont icon-bi"></i>
-          <span slot="title">&nbsp;&nbsp;&nbsp;爬虫规则录入</span>
+          <span slot="title">&nbsp;&nbsp;&nbsp;爬 虫 录 入</span>
         </el-menu-item>
         <el-menu-item index="/index/list">
           <i class="el-icon-document"></i>
-          <span slot="title">爬虫列表</span>
+          <span slot="title">爬 虫 列 表 </span>
+        </el-menu-item>
+        <el-menu-item index="/index/rule_list">
+          <i class="el-icon-document"></i>
+          <span slot="title">爬 &nbsp;&nbsp;取&nbsp;&nbsp; 中</span>
         </el-menu-item>
         <el-menu-item index="/index/setting">
           <i class="el-icon-setting"></i>
-          <span slot="title">设&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;置</span>
+          <span slot="title">设&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;置</span>
         </el-menu-item>
       </el-menu>
       <!-- sidebar menu end-->
@@ -50,12 +54,12 @@ export default {
 
   methods: {
     getusermes() {
-      this.$http.get("api/login").then(res => {
-        if (res.data.code == 200) {
-          this.username = res.data.data[0].username;
-          this.headimg = res.data.data[0].headimg;
-        }
-      });
+      // this.$http.get("api/login").then(res => {
+      //   if (res.data.code == 200) {
+      //     this.username = res.data.data[0].username;
+      //     this.headimg = res.data.data[0].headimg;
+      //   }
+      // });
     },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);

@@ -28,6 +28,10 @@ const router= new Router({
         name: 'list',
         component: ()=>import('@/view/subpage/list')
       },{
+        path: '/index/rule_list',
+        name: 'rule_list',
+        component: ()=>import('@/view/subpage/rule_list')
+      },{
         path: '/index/setting',
         name: 'setting',
         component: ()=>import('@/view/subpage/setting')

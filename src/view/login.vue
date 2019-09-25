@@ -1,6 +1,6 @@
 <template>
          <div class="page-container">
-            <h1  @click="logout">爬虫后台管理系统</h1>
+            <h1 >爬虫后台管理系统</h1>
             <form action="" method="post">
                 <input type="password" name="password" class="password"  @keydown.enter="enter" v-model="password" placeholder="Password">
                 <button class="signbtn" type="button" @click="enter">Sign me in</button>
@@ -9,7 +9,7 @@
            
              <div class="desweb">              
                 <p>
-                    <a class="facebook">Copyright&nbsp;&nbsp;㉢&nbsp;&nbsp;ZZH博客后台管理系统. All Rights Reserved.</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="facebook">Copyright&nbsp;&nbsp;㉢&nbsp;&nbsp;爬虫后台管理系统. All Rights Reserved. Make by ZZH</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <a class="twitter" >滇ICP备案:18003157</a>
                 </p>
             </div>
@@ -22,66 +22,32 @@ export default {
   name: "login",
   data() {
     return {
-      username: "",
       password: ""
     };
   },
   methods: {
-    logout() {
-      this.$http.get("api/systemmessage").then(res => {
-        console.log(res);
-      });
-    },
-    enter() { this.$router.push({ path: "/index/home" });
-      if (this.username == "" && this.password == "") {
-        this.$message({
-          message: "用户名和密码不能为空",
-          type: "warning"
-        });
-      } else {
-        if (this.username === "") {
-          this.$message({
-            message: "请输入您的用户名",
-            type: "warning"
-          });
-        }
+  
+    enter() { 
         if (this.password === "") {
           this.$message({
             message: "请输入您的密码",
             type: "warning"
-          });
-        }
-      }
-      if (this.username !== "" && this.password !== "") {
+          });   
+          
+          }else {
         this.$http
-          .post("api/Authentication/login", {
-            username: this.username,
+          .post("login/login", {
             password: this.password
           })
           .then(res => {
             console.log(res);
-            if (res.data.code == 200) {
+              localStorage.setItem('token',res.data.token)
               this.$message({
                 message: "登录成功",
                 type: "success"
               });
-              this.$router.push({ path: "/main" });
-            } else {
-              this.$message({
-                message: "用户名或密码错误",
-                type: "success"
-              });
-            }
-          }).catch(err=>{
-            console.log(err);
-            
-             this.$message({
-                message: "服务器错误",
-                type: "warning"
-              });
+             this.$router.push({ path: "/index/home" });
           })
-
-        //    this.$router.push({path:'/main'})
       }
     }
   }

@@ -33,17 +33,8 @@ export default {
     };
   },
   methods:{
-    change() {
-      if (this.move == 210) {
-        this.move = 0;
-      } else {
-        this.move = 210;
-      }
-    },
 toggle(){
 this.open=!this.open;
-// this.$refs.changemove.toggle()
-// this.$refs.addwidth.change()
 }
   },
   mounted() {

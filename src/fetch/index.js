@@ -2,13 +2,14 @@ import Vue from 'vue'
 import axios from 'axios';
 import router from '../router/index'
 import { Loading, Message } from 'element-ui';
-Vue.prototype.$loading = Loading.service;
-Vue.prototype.$message = Message;
-window.toast=Message;
+// Vue.prototype.$loading = Loading.service;
+// Vue.prototype.$message = Message;
+// window.toast=Message;
 Vue.use(Loading.directive);
 // 超时时间
 axios.defaults.timeout = 5000;
-axios.defaults.baseURL='http://blog.zangzhihong.com/'
+// axios.defaults.baseURL='http://blog.zangzhihong.com/'
+axios.defaults.baseURL='http://localhost:3002/'
     // http请求拦截器
 var loadinginstace;
  const loadingShow=()=>{//加载进度
@@ -36,22 +37,24 @@ axios.interceptors.request.use(config => {
         return Promise.reject(error)
     })
     // http响应拦截器
-axios.interceptors.response.use(data => { // 响应成功关闭loading
+axios.interceptors.response.use(response => { // 响应成功关闭loading
     loadingHidden()
-    return data
+    const res = response.data
+    if (!res.success) {
+        Message.error({
+            message: res.msg
+        })
+      }
+    return res
 }, error => {
-    loadingHidden()
-    Message.error({
-        message: '加载失败'
-    })
-    // const {status}=error.response;
-    // if(status==401){
-    //     Message.error({
-    //         message: 'token失效'
-    //     })
-    //     localStorage.removeItem('token')
-    //     router.push('/')
-    // }
+    if (error && error.response) {
+        loadingHidden()
+        Message.error({
+            message: '加载失败'
+        })
+        // router.push('/')
+    }
+ 
     return Promise.reject(error)
 })
 
