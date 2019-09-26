@@ -2,20 +2,13 @@
   <mu-appbar style="width: 100%;" color="primary">
 
     <mu-menu slot="right" open-on-hover>
-      <mu-tooltip content="退出登录" placement="bottom">
         <mu-button flat>
           <div class="iconfont icon-guanji tooltips header-icon"></div>
         </mu-button>
-      </mu-tooltip>
       <mu-list slot="content">
-        <mu-list-item button>
+        <mu-list-item button @click='loginout()'>
           <mu-list-item-content>
             <mu-list-item-title>退出登录</mu-list-item-title>
-          </mu-list-item-content>
-        </mu-list-item>
-        <mu-list-item button>
-          <mu-list-item-content>
-            <mu-list-item-title>Menu Item 2</mu-list-item-title>
           </mu-list-item-content>
         </mu-list-item>
       </mu-list>
@@ -23,50 +16,22 @@
   </mu-appbar>
 </template>
 <script>
-import theme from "@/theme";
+
 export default {
   data() {
     return {
-      isFullScreen: false,
-      isCollapse: localStorage.getItem('isCollapse')||false,
-      setIconColor:'#000'
+ 
     };
   },
   methods: {
- 
-    toggle(e) {
-      this.isCollapse = !this.isCollapse;
-      localStorage.setItem('isCollapse',this.isCollapse)
-      this.bus.$emit("isCollapse", this.isCollapse);
-    },
-    logout() {
-      this.$http.get("api/logout").then(res => {
-        console.log(res);
-        if (res.data.code == 200) {
-          this.$router.push({ path: "/" });
-        }
-      });
-    },
-    caseIconColor(color){   
-    switch(color){
-      case 'light':this.setIconColor='#000'
-      break;
-      case 'dark':this.setIconColor='#fff'
-      break;
-      case 'green':this.setIconColor='#fff'
-      break;
-      case 'pink':this.setIconColor='#000'
-      break;
-      case 'white':this.setIconColor='#000'
-      break;
-    }
-    }
+ loginout(){
+   localStorage.removeItem('token')
+   this.$router.push('/')
+ },
+
   },
   mounted(){
-    let color= localStorage.getItem("themecolor");
-   this.caseIconColor(color);
-   this.isCollapse ==  localStorage.getItem('isCollapse')||false
-    this.bus.$emit("isCollapse",this.isCollapse);
+    
   }
 };
 </script>

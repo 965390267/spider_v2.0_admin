@@ -53,14 +53,6 @@ export default {
   },
 
   methods: {
-    getusermes() {
-      // this.$http.get("api/login").then(res => {
-      //   if (res.data.code == 200) {
-      //     this.username = res.data.data[0].username;
-      //     this.headimg = res.data.data[0].headimg;
-      //   }
-      // });
-    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -70,12 +62,7 @@ export default {
     toggle() {}
   },
   mounted() {
-    this.getusermes();
-    // this.bus.$on("isCollapse", data => {
-    //   console.log("999");
 
-    //   this.isCollapse = !!data;
-    // });
   }
 };
 </script>

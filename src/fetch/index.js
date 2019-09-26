@@ -40,7 +40,9 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(response => { // 响应成功关闭loading
     loadingHidden()
     const res = response.data
-    if (!res.success) {
+    console.log(res);
+    
+    if (res.code!=200) {
         Message.error({
             message: res.msg
         })
@@ -48,11 +50,17 @@ axios.interceptors.response.use(response => { // 响应成功关闭loading
     return res
 }, error => {
     if (error && error.response) {
+        console.log(error.response);
+        
         loadingHidden()
-        Message.error({
-            message: '加载失败'
-        })
-        // router.push('/')
+
+        if(error.response.status==401){
+            Message.error({
+                message: error.response.statusText
+            })
+          router.push('/')
+        }
+      
     }
  
     return Promise.reject(error)

@@ -18,6 +18,7 @@ Vue.prototype.$message = Message;
 /* muse ui完整引入 */
 import MuseUI from 'muse-ui';
 import 'muse-ui/dist/muse-ui.css';
+import theme from './theme'
 Vue.use(MuseUI);
 /* muse ui完整引入 */
 import axios from './fetch'/* axios引入，加入拦截器 */

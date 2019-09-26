@@ -11,7 +11,7 @@
             <div class="error_detail">
               <p class="error_p_title">哎呦~ 老司机居然累倒了!</p>
               <p class="error_p_con">※ 别急，工程师正在紧急处理，马上就好。</p>
-              <p class="error_p_con">※ 您可QQ:123456789,通知开发人员!</p>
+              <p class="error_p_con">※ 您可QQ:965390267,通知开发人员!</p>
               <p class="error_p_con">※ 感谢您的支持,请您耐心等待!</p>
             </div>
 
@@ -41,7 +41,7 @@ export default {
 <style scoped>
 .error{
   height: 100%;
-  background:#0186a7;
+  background:#56B2FF;
 }
 i {
   font-style: normal;
