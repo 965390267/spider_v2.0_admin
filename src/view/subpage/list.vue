@@ -10,7 +10,7 @@
     <el-table-column
     align="center"
       label="时间"
-      prop="submittime">
+      prop="time">
     </el-table-column>
     <el-table-column
     align="center"
@@ -57,6 +57,30 @@
       :total="total">
     </el-pagination>
   <!-- 分页器 -->
+   <mu-dialog title="编辑站点信息" width="800" :overlay-close='false' :open.sync="openmodule">
+               <mu-form :model="checkedRow" class="mu-form" :label-position="labelPosition" label-width="100">
+    <mu-form-item prop="input" label="爬取页面网址">
+      <mu-text-field v-model="checkedRow.href"></mu-text-field>
+    </mu-form-item>
+      <mu-form-item prop="input" label="信息发布时间">
+      <mu-text-field v-model="checkedRow.time"></mu-text-field>
+    </mu-form-item>
+     <mu-form-item prop="input" label="标题">
+      <mu-text-field v-model="checkedRow.title"></mu-text-field>
+    </mu-form-item>
+     <mu-form-item prop="input" label="来源">
+      <mu-text-field v-model="checkedRow.address"></mu-text-field>
+    </mu-form-item>
+    <!-- <mu-form-item prop="switch" label="Switch">
+      <mu-switch v-model="form.switch"></mu-switch>
+    </mu-form-item> -->
+  </mu-form>
+    <div class="btn-group" slot="actions">
+<mu-button  flat class="btn-bg-cancel" @click='cancel()'>取消</mu-button>
+<mu-button  flat class="btn-bg-save" @click="save()">保存修改</mu-button>
+    </div>
+    
+  </mu-dialog>
     </div>
 </template>
 
@@ -65,11 +89,16 @@ import moment from 'moment'
   export default {
     data() {
       return {
+           labelPosition: 'top',
+
         tableData: [],
         search: '',
         total:0,
         currentPage:1,
-        loading:false
+        loading:false,
+        openmodule:false,
+        checkedRow:{},
+        checkedRowIndex:0,
       }
     },
     methods: {
@@ -81,16 +110,56 @@ import moment from 'moment'
            this.getList(val)
         console.log(`当前页: ${val}`);
       },
-      handleEdit(index, row) {
+      handleEdit(index, row) {//编辑按钮
         console.log(index, row);
+        this.openmodule=true;
+        this.checkedRow=row;
+        this.checkedRowIndex=index
       },
-      handleDelete(index, row) {
-        console.log(index, row);
-         let id=  row.id
-           this.$http.post('/deletelist/spider_list',{id:id}).then(res=>{
-console.log(res);
-
+      cancel(){
+        this.openmodule=false;
+      },
+      save(){
+          let {href,time,title,address}=this.checkedRow
+          this.$http.post('/editlist/spider_list',{id:this.checkedRow.id,update:{href,time,title,address}}).then(res=>{
+            if(res.code==200){
+               this.$message({
+                message: "修改成功",
+                type: "success"
+              });
+         this.checkedRow={}
+        this.checkedRowIndex=0;
+         this.openmodule=false;
+            }else{
+             this.$message({
+                message: "修改失败",
+                type: "success"
+              });
+            }
+               
            })
+      },
+      handleDelete(index, row) {//删除按钮
+      confirm('确定要删除？', '提示', {
+        type: 'warning'
+      }).then(({ result }) => {
+        if (result) {
+           let id=  row.id
+            this.$http.post('/deletelist/spider_list',{id:id}).then(res=>{
+              this.$message({
+                message: "删除成功",
+                type: "success"
+              });
+           this.getList( this.currentPage)
+           })
+        } else {
+         this.$message({
+                message: "取消删除",
+                type: "info"
+              });
+        }
+      });
+         
       },
         getList(page){
           this.loading=true;
@@ -139,5 +208,17 @@ console.log(res);
     display: flex;
     justify-content: center;
     margin-top: 40px;
+}
+.btn-group{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.btn-bg-cancel{
+  background: #b3e5fc;
+  color: #fff;
+}
+.btn-bg-save{
+  background: rgb(92, 107, 192);color: #fff;
 }
 </style>

@@ -36,36 +36,54 @@ export default {
   },
   data() {
     return {
-      visitnums: "",
-      carouselImg1: "http://img.zangzhihong.com/background1.jpg",
-      carouselImg2: "http://img.zangzhihong.com/background2.jpg",
-      carouselImg3: "http://img.zangzhihong.com/background3.jpg",
-      carouselImg4: "http://img.zangzhihong.com/background4.jpg"
+
     };
   },
   methods: {
-    drawEchart() {
-      let myChart1 = echarts.init(document.getElementById("myChart"));
+    echartListData(){
+         this.$http.post('/getlist/spider_list',{pageSize:50,currentPage:1}).then(res=>{
+          let list=res.data
+          let obj={}
+          for (let index = 0; index < list.length; index++) {
+            
+            let key=new Date(Number(list[index].submittime)).getDate()
+             key=Number(key)
+            if(typeof key === 'number' && !isNaN(key)){
+               key=String(key)
+               key+='日'
+               if(obj[key]){
+               let value=obj[key]
+               value++;
+              obj[key]=value
+             }else{
+               obj[key]=1
+             } 
+            }
+               
+          }
+  let myChart1 = echarts.init(document.getElementById("myChart"));
    
 const option = {
     xAxis: {
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', '7yue']
+        data: Object.keys(obj)
     },
     yAxis: {
         type: 'value'
     },
     series: [{
-        data: [120, 200, 150, 80, 70, 110, 130,400],
+        data:  Object.values(obj),
         type: 'line'
     }]
 };
       myChart1.setOption(option);
        window.onresize = myChart1.resize;
-    },
+          
+       })
+    }
   },
   mounted() {
-    this.drawEchart();
+    this.echartListData()
   }
 };
 </script>

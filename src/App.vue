@@ -13,6 +13,8 @@ export default {
 </script>
 
 <style>
-
+.mu-modal-icon {
+  display: none;
+}
 
 </style>

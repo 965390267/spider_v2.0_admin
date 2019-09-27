@@ -63,7 +63,7 @@ export default {
   top: 0px;
   left: 0px;
   z-index: -99;
-  background-image: url("../assets/img/bg.jpg");
+  background-image: url("../../static/bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;

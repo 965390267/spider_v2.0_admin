@@ -9,7 +9,8 @@ Vue.use(Loading.directive);
 // 超时时间
 axios.defaults.timeout = 5000;
 // axios.defaults.baseURL='http://blog.zangzhihong.com/'
-axios.defaults.baseURL='http://localhost:3002/'
+//axios.defaults.baseURL='http://localhost:3002/'
+axios.defaults.baseURL='http://39.105.130.42:3002/'
     // http请求拦截器
 var loadinginstace;
  const loadingShow=()=>{//加载进度
