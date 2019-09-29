@@ -1,6 +1,6 @@
 <template>
     <div class="rule">
-        <div class="rule-title">爬取中的站点</div>
+        <div class="rule-title">爬取列表</div>
           <el-table
           class="setTable"
            v-loading="loading"

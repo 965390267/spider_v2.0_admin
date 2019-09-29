@@ -2,7 +2,7 @@
          <div class="page-container">
             <h1 >爬虫后台管理系统</h1>
             <form action="" method="post">
-                <input type="password" name="password" class="password"  @keydown.enter="enter" v-model="password" placeholder="Password">
+                <input type="password" name="password" class="password"  @keydown.stop.prevent.enter="enter" v-model="password" placeholder="Password">
                 <button class="signbtn" type="button" @click="enter">Sign me in</button>
                 <div class="error"><span>+</span></div>
             </form>
@@ -40,7 +40,7 @@ export default {
             password: this.password
           })
           .then(res => {
-            console.log(res);
+ 
               localStorage.setItem('token',res.data.token)
               this.$message({
                 message: "登录成功",

@@ -41,12 +41,13 @@ export default {
   },
   methods: {
     echartListData(){
-         this.$http.post('/getlist/spider_list',{pageSize:50,currentPage:1}).then(res=>{
+         this.$http.post('/getlist/spider_list',{pageSize:100,currentPage:1}).then(res=>{
           let list=res.data
           let obj={}
           for (let index = 0; index < list.length; index++) {
+            let date=new Date(Number(list[index].submittime))
             
-            let key=new Date(Number(list[index].submittime)).getDate()
+            let key= date.getDate()
              key=Number(key)
             if(typeof key === 'number' && !isNaN(key)){
                key=String(key)
@@ -66,13 +67,13 @@ export default {
 const option = {
     xAxis: {
         type: 'category',
-        data: Object.keys(obj)
+        data: Object.keys(obj).reverse()
     },
     yAxis: {
         type: 'value'
     },
     series: [{
-        data:  Object.values(obj),
+        data:  Object.values(obj).reverse(),
         type: 'line'
     }]
 };

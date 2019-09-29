@@ -1,6 +1,6 @@
 <template>
   <mu-appbar style="width: 100%;" color="primary">
-
+   云师爬虫后台管理系统
     <mu-menu slot="right" open-on-hover>
         <mu-button flat>
           <div class="iconfont icon-guanji tooltips header-icon"></div>
