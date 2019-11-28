@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     echartListData(){
-         this.$http.post('/getlist/spider_list',{pageSize:100,currentPage:1}).then(res=>{
+         this.$http.post('/getlist/spider_list',{pageSize:100,currentPage:1,area:'云南'}).then(res=>{
           let list=res.data
           let obj={}
           for (let index = 0; index < list.length; index++) {
